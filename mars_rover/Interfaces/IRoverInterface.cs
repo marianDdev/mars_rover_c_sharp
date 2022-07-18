@@ -1,5 +1,4 @@
-﻿using System;
-namespace mars_rover.Interfaces
+﻿namespace mars_rover.Interfaces
 {
     public interface IRoverInterface
     {

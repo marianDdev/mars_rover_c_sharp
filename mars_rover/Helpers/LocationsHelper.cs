@@ -6,14 +6,14 @@ namespace mars_rover
 {
     public class LocationsHelper
     {
-        public char[] Letters = "ABCDEFGHIJKLMNO".ToCharArray();
+        public string[] Letters = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O" };
+        Random random = new Random();
 
         public string GetRandomLocation()
         {
-            Random r = new Random();
-            int position = r.Next(1, 15);
+            int position = random.Next(1, 15);
 
-            char randomLetter = Letters[position];
+            string randomLetter = Letters[position];
 
             string randomPosition = String.Concat(randomLetter, position);
 
@@ -23,6 +23,14 @@ namespace mars_rover
 
             return randomLocation;
 
+        }
+
+        public string GetRandomOrientation()
+        {
+            List<string> availableOrientations = new List<string> { "NORTH", "SOUTH", "WEST", "EAST" };
+
+            int index = random.Next(availableOrientations.Count);
+            return availableOrientations[index];
         }
 
         public Dictionary<string, Object> Locations()
@@ -54,6 +62,19 @@ namespace mars_rover
             MarsLocations[position] = Arrows[orientation];
 
             return MarsLocations;
+        }
+
+        public string[] GetCoordinates(string position)
+        {
+            string x = position.Substring(0, 1);
+            string y = position.Substring(1, 1);
+
+            if (position.Length == 3)
+            {
+              y = position.Substring(1, 2);
+            }
+
+            return new string[] { x, y};
         }
 
         private Dictionary<string, string> OrientationArrows()

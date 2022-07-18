@@ -8,7 +8,7 @@ namespace mars_rover
     public class Mars: LocationsHelper, IMarsInterface
     {
 
-        public void PrintLocationsChart(string position, string orientation)
+        public void PrintSurface(string position, string orientation)
         {
             Dictionary<string, Object> MarsLocations = LocationsWithRoverPosition(position, orientation);
 

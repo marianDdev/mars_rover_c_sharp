@@ -27,6 +27,13 @@ namespace mars_rover
             
             CurrentPosition = String.Concat(x, y);
         }
+
+
+        public void ShowNextAvailableMove()
+        {
+            ValidateOrientation(Orientation);
+            Console.WriteLine($"Your current position is {CurrentPosition} and you are heading {Orientation}. Your next available move is {ValidateNextAvailableMove(CurrentPosition, Orientation)}");
+        }
     }
 }
 
