@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using mars_rover.Interfaces;
 
 namespace mars_rover
@@ -28,11 +29,14 @@ namespace mars_rover
             CurrentPosition = String.Concat(x, y);
         }
 
-
-        public void ShowNextAvailableMove()
+        public Dictionary<string, string> ShowNextAvailableMove()
         {
             ValidateOrientation(Orientation);
-            Console.WriteLine($"Your current position is {CurrentPosition} and you are heading {Orientation}. Your next available move is {ValidateNextAvailableMove(CurrentPosition, Orientation)}");
+            Dictionary<string, string> PositionData = ValidateNextAvailableMove(CurrentPosition, Orientation);
+            CurrentPosition = PositionData["current_position"];
+            Orientation = PositionData["new_orientation"];
+
+            return PositionData;
         }
     }
 }

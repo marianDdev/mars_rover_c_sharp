@@ -10,29 +10,38 @@ namespace mars_rover
             LocationsHelper helper = new LocationsHelper();
             Validator validator = new Validator();
             Mars m = new Mars();
-            Rover r = new Rover(helper.GetRandomLocation(), helper.GetRandomOrientation());
+            //Rover r = new Rover(helper.GetRandomLocation(), helper.GetRandomOrientation());
+            Rover r = new Rover("D10", "NORTH");
 
-            r.ShowNextAvailableMove();
+            Dictionary<string, string> PositionData = r.ShowNextAvailableMove();
 
-            Console.WriteLine("Enter ORIENTATION");
-            string orientation = Console.ReadLine().ToUpper();
-            validator.ValidateOrientation(orientation);
+            if (PositionData["ask_details"] == "no")
+            {
+                m.PrintSurface(r.CurrentPosition, r.Orientation);
+            } else
+            {
+             Console.WriteLine($"Your current position id {r.CurrentPosition} and your current orientation is  {r.Orientation}.");
+             Console.WriteLine("Enter new orientation");
+             string orientation = Console.ReadLine().ToUpper();
 
-            //r.ChangeOrientation(orientation);
+             orientation = validator.ValidateOrientation(orientation).ToUpper();
 
-            r.ShowNextAvailableMove();
+             r.ChangeOrientation(orientation);
 
-            Console.WriteLine("Enter next X axys position.");
-            string x = Console.ReadLine().ToUpper();
-            validator.ValidatetMoveOnXAxys(x, r.CurrentPosition);
+             Console.WriteLine("Enter next X axys position.");
+             string x = Console.ReadLine().ToUpper();
+             x= validator.ValidatetMoveOnXAxys(x, r.CurrentPosition).ToUpper();
 
-            Console.WriteLine("Enter next Y axys position.");
-            string y = Console.ReadLine().ToUpper();
-            validator.ValidatetMoveOnYAxys(y, r.CurrentPosition);
+             Console.WriteLine("Enter next Y axys position.");
+             string y = Console.ReadLine().ToUpper();
+             y = validator.ValidatetMoveOnYAxys(y, r.CurrentPosition);
 
-            r.Move(x, y);
+             r.ShowNextAvailableMove();
 
-            m.PrintSurface(r.CurrentPosition, r.Orientation);
+             r.Move(x, y);
+
+             m.PrintSurface(r.CurrentPosition, r.Orientation);
+            }
         }
     }
 }
